@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1= title
+  h2= subtitle
+  if user
+    form(name='submitSignIn', id='submitSignIn')
+      p Email:
+      p
+        input(name= 'inputEmail', id= 'inputEmail')
+
+      p Password:
+      p
+        input(name= 'inputPassword', id= 'inputPassword')
+      p
+        button(type= 'submit') Sign In
+  else
+    form(name='submitSignUp', id='submitSignUp')
+      p Email:
+      p
+        input(name= 'inputEmail', id= 'inputEmail')
+
+      p Password:
+      p
+        input(name= 'inputPassword', id= 'inputPassword')
+      p
+        button(type= 'submit') Sign Up
