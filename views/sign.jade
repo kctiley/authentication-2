@@ -4,7 +4,7 @@ block content
   h1= title
   h2= subtitle
   if user
-    form(name='submitSignIn', id='submitSignIn')
+    form(name='submitSignIn', id='submitSignIn', action='/', method="post")
       p Email:
       p
         input(name= 'inputEmail', id= 'inputEmail')
@@ -15,7 +15,7 @@ block content
       p
         button(type= 'submit') Sign In
   else
-    form(name='submitSignUp', id='submitSignUp')
+    form(name='submitSignUp', id='submitSignUp', action='/', method="post")
       p Email:
       p
         input(name= 'inputEmail', id= 'inputEmail')

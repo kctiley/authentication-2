@@ -5,7 +5,9 @@ var Users = db.get('users');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Authentication-2' });
+  Users.find({}, function(err, record){
+    res.render('index', { title: 'Authentication-2', allUsers: record });
+  });
 });
 
 /* GET home page. */
@@ -17,5 +19,14 @@ router.get('/signup', function(req, res, next) {
 router.get('/signin', function(req, res, next) {
   res.render('sign', { title: 'Authentication-2', subtitle: 'Sign In', user: 'user' });
 });
+
+router.post('/', function(req, res, next){
+  console.log("Req.body.inputEmail" + req.body.inputEmail);
+  Users.insert({email: req.body.inputEmail, password: req.body.password}, function(err, record){
+    res.render('index', {title: 'Authentication-2', userEmail: req.body.inputEmail})
+  })
+})
+
+
 
 module.exports = router;

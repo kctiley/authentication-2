@@ -2,7 +2,11 @@ extends layout
 
 block content
   h1= title
-  p
-    a(href='/signup') Sign Up
-  p
-    a(href='/signin') Sign In
+  if userEmail
+    p
+      h2= userEmail + "...You are now signed in"
+  else
+    p
+      a(href='/signup') Sign Up
+    p
+      a(href='/signin') Sign In
