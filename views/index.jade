@@ -2,9 +2,11 @@ extends layout
 
 block content
   h1= title
-  if userEmail
+  if statusSignedIn
     p
       h2= userEmail + "...You are now signed in"
+    p
+      a(href='/logout') Logout
   else
     p
       a(href='/signup') Sign Up
