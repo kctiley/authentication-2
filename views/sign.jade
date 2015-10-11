@@ -3,8 +3,9 @@ extends layout
 block content
   h1= title
   h2= subtitle
+  include error.jade
   if user
-    form(name='submitSignIn', id='submitSignIn', action='/', method="post")
+    form(name='submitSignIn', id='submitSignIn', action='/signin', method="post")
       p Email:
       p
         input(name= 'inputEmail', id= 'inputEmail')
@@ -15,7 +16,7 @@ block content
       p
         button(type= 'submit') Sign In
   else
-    form(name='submitSignUp', id='submitSignUp', action='/', method="post")
+    form(name='submitSignUp', id='submitSignUp', action='/signup', method="post")
       p Email:
       p
         input(name= 'inputEmail', id= 'inputEmail')
