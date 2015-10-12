@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('monk')('localhost/authentication-2');
 var Users = db.get('users');
+var bcrypt = require('bcrypt');
 
 
 router.get('/', function(req, res, next) {
@@ -36,7 +37,8 @@ router.post('/signup', function(req, res, next){
       }
       else{
         req.session.username = req.body.inputEmail;
-        Users.insert({email: req.body.inputEmail, password: req.body.inputPassword}, function(err, record){
+        var hashedPassword = bcrypt.hashSync(req.body.inputPassword, 8)
+        Users.insert({email: req.body.inputEmail, password: hashedPassword}, function(err, record){
           res.render('index', {title: 'Authentication-2', statusSignedIn: true, userEmail: req.body.inputEmail})
         })
       };
@@ -63,7 +65,8 @@ router.post('/signin', function(req, res, next){
     Users.findOne({email: req.body.inputEmail}, function(err, record){ 
       if(record){
         console.log('The record.....' + record.email);
-        if(record.password === req.body.inputPassword){
+        var hashedPassword = req.body.inputPassword;
+        if(bcrypt.compareSync(hashedPassword, record.password)){
           req.session.username = req.body.inputEmail;;
           res.render('index', {title: "Auth-2",statusSignedIn: true, userEmail: req.body.inputEmail})
         }
