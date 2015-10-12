@@ -70,6 +70,10 @@ router.post('/signin', function(req, res, next){
           req.session.username = req.body.inputEmail;;
           res.render('index', {title: "Auth-2",statusSignedIn: true, userEmail: req.body.inputEmail})
         }
+        else{
+          errors.push('Password incorrect')
+          res.render('sign', {title: "Auth-2", user: 'user', errors: errors})              
+        }
       }
       else{
         errors.push('Cannot find user email')
