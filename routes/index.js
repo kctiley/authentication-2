@@ -36,10 +36,10 @@ router.post('/signup', function(req, res, next){
         res.render('sign', { title: 'Authentication-2', subtitle: 'Sign Up', errors: errors})
       }
       else{
-        req.session.username = req.body.inputEmail;
+        req.session.userEmail = req.body.inputEmail;
         var hashedPassword = bcrypt.hashSync(req.body.inputPassword, 8)
         Users.insert({email: req.body.inputEmail, password: hashedPassword}, function(err, record){
-          res.render('index', {title: 'Authentication-2', statusSignedIn: true, userEmail: req.body.inputEmail})
+          res.render('index', {title: 'Authentication-2', statusSignedIn: true, userEmail: req.session.userEmail})
         })
       };
     })
@@ -65,10 +65,10 @@ router.post('/signin', function(req, res, next){
     Users.findOne({email: req.body.inputEmail}, function(err, record){ 
       if(record){
         console.log('The record.....' + record.email);
-        var hashedPassword = req.body.inputPassword;
-        if(bcrypt.compareSync(hashedPassword, record.password)){
-          req.session.username = req.body.inputEmail;;
-          res.render('index', {title: "Auth-2",statusSignedIn: true, userEmail: req.body.inputEmail})
+        var password = req.body.inputPassword;
+        if(bcrypt.compareSync(password, record.password)){
+          req.session.userEmail = req.body.inputEmail;;
+          res.render('index', {title: "Auth-2",statusSignedIn: true, userEmail: req.session.userEmail})
         }
         else{
           errors.push('Password incorrect')
